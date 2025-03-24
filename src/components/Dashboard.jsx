@@ -47,7 +47,7 @@ const Dashboard = () => {
         } else {
           // If no parking slots exist, create default ones
           const defaultSlots = {};
-          const defaultSlotNames = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight"];
+          const defaultSlotNames = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
           defaultSlotNames.forEach((name) => {
             defaultSlots[name] = {
               available: true,
@@ -154,7 +154,7 @@ const Dashboard = () => {
   return (
     <Box>
 
-      <Tooltip title="Add Parking Slot">
+      {/* <Tooltip title="Add Parking Slot">
         <Fab
           color="primary"
           onClick={() => setOpenDialog(true)}
@@ -162,7 +162,7 @@ const Dashboard = () => {
         >
           <AddIcon />
         </Fab>
-      </Tooltip>
+      </Tooltip> */}
 
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Add New Slot</DialogTitle>
