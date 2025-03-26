@@ -45,9 +45,17 @@ const App = () => {
   return (
     <Box sx={{ minHeight: "100vh", backgroundColor: "#f4f6f8" }}>
       <AppBar position="static" color="primary" elevation={2}>
-        <Toolbar sx={{ flexDirection: isSmallScreen ? "column" : "row", alignItems: isSmallScreen ? "flex-start" : "center" }}>
-          <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: 600, mb: isSmallScreen ? 1 : 0 }}>
-            🚗 Parking Management System
+        <Toolbar
+          sx={{
+            flexDirection: isSmallScreen ? "column" : "row",
+            alignItems: isSmallScreen ? "flex-start" : "center",
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ flexGrow: 1, fontWeight: 600, mb: isSmallScreen ? 1 : 0 }}
+          >
+            🚗 loo Parking Management System
           </Typography>
           <Tabs
             value={currentTab}
@@ -57,7 +65,10 @@ const App = () => {
             centered={!isSmallScreen}
             variant={isSmallScreen ? "scrollable" : "standard"}
             scrollButtons={isSmallScreen ? "auto" : false}
-            sx={{ ml: isSmallScreen ? 0 : 4, width: isSmallScreen ? "100%" : "auto" }}
+            sx={{
+              ml: isSmallScreen ? 0 : 4,
+              width: isSmallScreen ? "100%" : "auto",
+            }}
           >
             <Tab label="Dashboard" />
             <Tab label="Reserve Slot" />
