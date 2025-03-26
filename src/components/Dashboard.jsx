@@ -34,20 +34,27 @@ const Dashboard = () => {
     const fetchParkingData = async () => {
       try {
         const snapshot = await get(ref(database, "parking"));
+        const slotOrder = ["1", "2", "3", "4", "5", "6"];
+
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setParkingSlots(
-            Object.keys(data).map((key) => ({
-              id: key,
-              reserved: !data[key].available,
-              time: data[key].time || null,
-              ...data[key],
-            }))
+          const slotsArray = Object.keys(data).map((key) => ({
+            id: key,
+            reserved: !data[key].available,
+            time: data[key].time || null,
+            ...data[key],
+          }));
+
+          // Sort by slotOrder
+          const sortedSlots = slotsArray.sort(
+            (a, b) => slotOrder.indexOf(a.id) - slotOrder.indexOf(b.id)
           );
+
+          setParkingSlots(sortedSlots);
         } else {
-          // If no parking slots exist, create default ones
           const defaultSlots = {};
-          const defaultSlotNames = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"];
+          const defaultSlotNames = slotOrder;
+
           defaultSlotNames.forEach((name) => {
             defaultSlots[name] = {
               available: true,
@@ -62,7 +69,6 @@ const Dashboard = () => {
 
           await set(ref(database, "parking"), defaultSlots);
 
-          // Update state with default slots
           setParkingSlots(
             defaultSlotNames.map((name) => ({
               id: name,
@@ -82,6 +88,7 @@ const Dashboard = () => {
 
     fetchParkingData();
   }, []);
+
 
 
   const handleAddSlot = async () => {
@@ -215,8 +222,8 @@ const Dashboard = () => {
                 xs={12}
                 sm={6}
                 md={4}
-                lg={3}
-                xl={2}
+                lg={4}
+                xl={3}
                 key={spot.id}
               >
                 <Card
