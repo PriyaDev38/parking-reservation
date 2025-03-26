@@ -55,7 +55,7 @@ const App = () => {
             variant="h5"
             sx={{ flexGrow: 1, fontWeight: 600, mb: isSmallScreen ? 1 : 0 }}
           >
-            🚗 loo Parking Management System
+            🚗Parking Management System
           </Typography>
           <Tabs
             value={currentTab}
