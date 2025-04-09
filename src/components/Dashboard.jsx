@@ -29,7 +29,6 @@ const Dashboard = () => {
   const [success, setSuccess] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-
   useEffect(() => {
     const fetchParkingData = async () => {
       try {
@@ -49,7 +48,7 @@ const Dashboard = () => {
           const sortedSlots = slotsArray.sort(
             (a, b) => slotOrder.indexOf(a.id) - slotOrder.indexOf(b.id)
           );
-
+          console.log(sortedSlots);
           setParkingSlots(sortedSlots);
         } else {
           const defaultSlots = {};
@@ -89,8 +88,6 @@ const Dashboard = () => {
     fetchParkingData();
   }, []);
 
-
-
   const handleAddSlot = async () => {
     if (!slotName.trim()) {
       setSlotError("Slot name cannot be empty!");
@@ -125,7 +122,6 @@ const Dashboard = () => {
 
   const cancelReservation = async (slotId, name) => {
     try {
-
       await update(ref(database, `parking/${slotId}`), {
         available: true,
         user: "",
@@ -137,7 +133,6 @@ const Dashboard = () => {
       });
 
       await remove(ref(database, `reservations/${name}`));
-
 
       setParkingSlots((prev) =>
         prev.map((slot) =>
@@ -152,7 +147,14 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -160,7 +162,6 @@ const Dashboard = () => {
 
   return (
     <Box>
-
       {/* <Tooltip title="Add Parking Slot">
         <Fab
           color="primary"
@@ -195,7 +196,11 @@ const Dashboard = () => {
         </DialogActions>
       </Dialog>
 
-      <Snackbar open={success} autoHideDuration={4000} onClose={() => setSuccess(false)}>
+      <Snackbar
+        open={success}
+        autoHideDuration={4000}
+        onClose={() => setSuccess(false)}
+      >
         <Alert severity="success">Slot added successfully!</Alert>
       </Snackbar>
 
@@ -207,25 +212,15 @@ const Dashboard = () => {
         </Box>
       ) : (
         <Box>
-
           <Box sx={{ textAlign: "", my: 2 }}>
             <Typography variant="h5" color="#186bc3">
               Current Parking Slots
             </Typography>
           </Box>
 
-
           <Grid container spacing={3} sx={{ mt: 2 }}>
             {parkingSlots.map((spot) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={4}
-                xl={3}
-                key={spot.id}
-              >
+              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={spot.id}>
                 <Card
                   elevation={4}
                   sx={{
@@ -235,7 +230,9 @@ const Dashboard = () => {
                     justifyContent: "space-between",
                     borderRadius: 3,
                     backgroundColor: spot.reserved ? "#ffe5e5" : "#e0f7e9",
-                    boxShadow: spot.reserved ? "0 4px 10px rgba(255, 0, 0, 0.2)" : "0 4px 10px rgba(0, 200, 83, 0.2)",
+                    boxShadow: spot.reserved
+                      ? "0 4px 10px rgba(255, 0, 0, 0.2)"
+                      : "0 4px 10px rgba(0, 200, 83, 0.2)",
                   }}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -271,7 +268,6 @@ const Dashboard = () => {
               </Grid>
             ))}
           </Grid>
-
         </Box>
       )}
     </Box>

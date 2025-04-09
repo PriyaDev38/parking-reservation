@@ -184,7 +184,7 @@ const ReserveSlot = () => {
           onChange={(e) => setVehicleType(e.target.value)}
           label="Vehicle Type"
         >
-          {/* <MenuItem value="Two-Wheeler">Two-Wheeler</MenuItem> */}
+          <MenuItem value="Two-Wheeler">Two-Wheeler</MenuItem>
           <MenuItem value="Four-Wheeler">Four-Wheeler</MenuItem>
         </Select>
       </FormControl>
